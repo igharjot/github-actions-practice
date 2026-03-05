@@ -13,3 +13,19 @@ jobs:
              
             - name: Print greeting
               run: echo "Hello from GitHub Actions!"
+    
+    details:          
+        runs-on: ubuntu-latest
+        steps:      
+            - name: Print current date and time
+              run: date  
+      
+            - name: Print name of the branch that triggered the workflow
+              run: echo "This workflow was triggered by a push to the $GITHUB_REF branch."
+            
+            - name: List files in the repo
+              run: ls -l
+            
+            - name: Print the runner's operating system
+              run: echo "Runners operating system is - " | uname -a
+      
