@@ -1,0 +1,21 @@
+name: PR-Check
+
+on:
+    pull_request:
+        branches:
+            - main
+        types: 
+            - opened
+            - synchronize
+    
+jobs: 
+    PR_check:
+        runs-on: ubuntu-latest
+
+        steps:
+            - name: Checkout repo
+              uses: actions/checkout@v4
+              
+            - name: Checking branch of the PR
+              run: echo "PR check running for branch - $GITHUB_HEAD_REF"
+
