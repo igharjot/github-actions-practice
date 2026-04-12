@@ -1,0 +1,22 @@
+name: GitHub-Hosted Runner
+
+on: workflow_dispatch
+
+jobs:
+    ubuntu:
+        runs-on: ubuntu-latest
+        steps:
+            - name:
+              run:
+
+    window:
+        runs-on: windows-latest
+        steps:
+            - name:
+              run:
+
+    mac:
+        runs-on: macos-latest
+        steps:
+            - name:
+              run:
