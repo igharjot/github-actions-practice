@@ -1,7 +1,6 @@
 name: GitHub-Hosted Runner
-
-on: workflow_dispatch
-
+on: 
+    workflow_dispatch:
 jobs:
     ubuntu:
         runs-on: ubuntu-latest
@@ -12,6 +11,14 @@ jobs:
                 echo "OS Name - ${{ runner.os }}"
                 echo "Runner's HostName - ${{ runner.name }}"
                 echo "Current User - $(whoami)"
+
+            - name: Checking Versions of docker, python, node and git
+              run: |
+                echo "Docker: $(docker --version)"
+                echo "Pyhton: $(python3 --version)"
+                echo "Node: $(node --version)"
+                echo "Git: $(git --version)"
+
 
     window:
         runs-on: windows-latest
