@@ -14,4 +14,4 @@ jobs:
 
             - name: Creating and verifying a new file
               run: |
-                mkdir newfile.txt
+                touch newfile.txt
