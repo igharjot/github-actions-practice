@@ -1,7 +1,6 @@
 name: Python Matrix Test
 
 on:
-    push:
     workflow_dispatch:
 
 jobs:
