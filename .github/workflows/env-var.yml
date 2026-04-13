@@ -1,0 +1,14 @@
+name: Environment Variables
+
+on:
+    workflow_dispatch:
+
+jobs:
+    test:
+        runs-on: ubuntu-latest
+        steps:
+            - name: Printing variables at three levels.
+              run: |
+                echo "Workflow level - "
+                echo "Job Level - "
+                echo "Step level - "
