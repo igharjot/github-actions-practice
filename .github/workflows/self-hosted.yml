@@ -5,4 +5,13 @@ on:
 
 jobs:
     self:
-        runs-on: ubuntu-latest        
+        runs-on: self-hosted
+        steps:
+            - name: Printing Hostname and working directory 
+              run: |
+                echo "Hostname - ${{ runner.name }}"
+                echo "Working Directory - $(pwd)"
+
+            - name: Creating and verifying a new file
+              run: |
+                mkdir newfile.txt
