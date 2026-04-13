@@ -6,17 +6,30 @@ jobs:
     ubuntu:
         runs-on: ubuntu-latest
         steps:
-            - name:
-              run:
+            - name: OS Name, Runner's Hostname and Current User Running the job
+              run: |
+                echo "------ UBUNTU ------"
+                echo "OS Name - ${{ runner.os }}"
+                echo "Runner's HostName - ${{ runner.name }}"
+                echo "Current User - $(whoami)"
 
     window:
         runs-on: windows-latest
         steps:
-            - name:
-              run:
+            - name: OS Name, Runner's Hostname and Current User Running the job
+              shell: pwsh
+              run: |
+                echo "------ WINDOWS ------"
+                echo "OS Name - ${{ runner.os }}"
+                echo "Runner's HostName - ${{ runner.name }}"
+                echo "Current User - $env:USERNAME"
 
     mac:
         runs-on: macos-latest
         steps:
-            - name:
-              run:
+            - name: OS Name, Runner's Hostname and Current User Running the job
+              run: |
+                echo "------ MAC-OS ------"
+                echo "OS Name - ${{ runner.os }}"
+                echo "Runner's HostName - ${{ runner.name }}"
+                echo "Current User - $(whoami)"
