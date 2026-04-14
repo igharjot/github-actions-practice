@@ -1,0 +1,42 @@
+name: Conditionals Demo
+
+on:
+    push:
+    workflow_dispatch:
+
+jobs:
+    step-conditionals:
+        runs-on: ubuntu-latest
+        steps:
+            # 1. Only runs when branch is main
+            - name: Deploy (main branch only)
+              if: github.ref == 'refs/heads/main'
+              run: echo "Running on main branch - deploying..."
+
+            # 2. Only runs when previous step failed
+            - name: Intentionally failing this step
+              id: failing-step
+              run: |
+                echo "This step will fail..."
+                exit 1                                        
+
+            - name: Runs only if previous step failed
+              if: failure()                                   # runs when ANY previous step failed
+              run: echo "Previous step failed !"
+
+            # 4. continue-on-error — job won't fail even if this step fails
+            - name: Step with continue-on-error
+              continue-on-error: true                # job continues regardless of this step's result
+              run: |
+                echo "This step will fail but job won't stop..."
+                exit 1
+
+            - name: This still runs because of continue-on-error
+              run: echo "Job continued successfully!"
+
+    push-only-job:
+        runs-on: ubuntu-latest
+        if: github.event_name == 'push'                     # skipped entirely on pull_request
+        steps:
+            - name: Push event confirmed
+              run: echo "Triggered by push..."
