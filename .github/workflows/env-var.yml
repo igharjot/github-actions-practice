@@ -3,12 +3,26 @@ name: Environment Variables
 on:
     workflow_dispatch:
 
+env: 
+    APP_NAME: myapp                                     # Workflow level env
+
 jobs:
-    test:
+    print-env:
         runs-on: ubuntu-latest
+
+        env: 
+            ENVIRONMENT: staging                        # Job level env
+
         steps:
             - name: Printing variables at three levels.
+              env:
+                VERSION: 1.0.0                          # Step level env
               run: |
-                echo "Workflow level - "
-                echo "Job Level - "
-                echo "Step level - "
+                echo "----- Environment Variables -----"
+                echo "App Name    (Workflow level) : $APP_NAME "
+                echo "Environment (Job Level)      : $ENVIRONMENT "
+                echo "Version     (Step level)     : $VERSION "
+                echo " "
+                echo "---- GitHub Context Variables ----"
+                echo "Commit SHA   : ${{ github.sha }}"
+                echo "Triggered By : ${{ github.actor }}"
