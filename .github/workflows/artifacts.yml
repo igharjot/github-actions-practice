@@ -21,5 +21,18 @@ jobs:
               uses: actions/upload-artifact@v4
               with:
                 name: test-report
-                path: reports/test-report.txt
+                path: reports/test-report.txt    # where to upload
                 retention-days: 5
+
+    download-and-read:
+        runs-on: ubuntu-latest
+        needs: file-generation
+        steps:
+            - name: Download test report
+              uses: actions/download-artifact@v4
+              with:
+                name: test-report
+                path: downloaded-reports/        # where to put it
+
+            - name: Read the report
+              run: cat downloaded-reports/test-report.txt
