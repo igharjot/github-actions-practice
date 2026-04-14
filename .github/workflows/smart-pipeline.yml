@@ -1,0 +1,28 @@
+name: Smart Pipeline
+on:
+    push:
+
+jobs:
+    lint:
+        runs-on: ubuntu-latest
+        steps:
+            - name: Lint Job
+              run: echo "Linting..."
+        
+    test:
+        runs-on: ubuntu-latest
+        steps:
+            - name: Test Job
+              run: echo "Testing..."
+
+    summary:
+        needs: [ lint, test ]
+        runs-on: ubuntu-latest
+        steps:
+            - name: Push Branch Name
+              run: echo "Push branch name is ${{github.ref}}"
+            
+            - name: Printing the commit message.
+              run: |
+                echo "Printing the commit message : "
+                echo "${{ github.event.commits[0].message }}"
