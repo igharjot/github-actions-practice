@@ -1,0 +1,25 @@
+name: Artifacts Practice
+
+on:
+    workflow_dispatch:
+
+jobs:
+    file-generation:
+        runs-on: ubuntu-latest
+        steps:
+            - name: Generating a text file
+              run: |
+                mkdir -p reports
+                touch reports/test-report.txt
+                echo "===== TEST REPORT =====" >> reports/test-report.txt
+                echo "Branch       : ${{github.ref_name}}" >> reports/test-report.txt
+                echo "Date         : $(date)" >> reports/test-report.txt
+                echo "Commit SHA   : ${{github.sha}}" >> reports/test-report.txt
+                echo "Triggered By : ${{github.actor}}" >> reports/test-report.txt
+
+            - name: Upload the test report
+              uses: actions/upload-artifact@v4
+              with:
+                name: test-report
+                path: reports/test-report.txt
+                retention-days: 5
