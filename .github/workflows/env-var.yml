@@ -23,6 +23,9 @@ jobs:
                 echo "Environment (Job Level)      : $ENVIRONMENT "
                 echo "Version     (Step level)     : $VERSION "
                 echo " "
+
+            - name: Printing GitHub Context Variables
+              run: |  
                 echo "---- GitHub Context Variables ----"
                 echo "Commit SHA   : ${{ github.sha }}"
                 echo "Triggered By : ${{ github.actor }}"

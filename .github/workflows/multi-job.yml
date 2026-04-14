@@ -1,4 +1,4 @@
-name: Multi-Job
+name: Multi-Job and Job Outputs
 
 on:
     workflow_dispatch:
@@ -23,3 +23,22 @@ jobs:
         steps:
             - name: Print
               run: echo "Deploying"
+
+    
+    job1-set-output:
+        runs-on: ubuntu-latest
+        outputs:
+            today_date: ${{ steps.get-date.outputs.today_date }}   # expose step output to job level
+        steps:
+            - name: Get today's date
+              id: get-date                                     # id is required to reference output
+              run: |
+                echo "today_date=$(date +'%Y-%m-%d')" >> $GITHUB_OUTPUT
+
+    job2-read-output:
+        runs-on: ubuntu-latest
+        needs: job1-set-output                                 # wait for job1 to finish
+        steps:
+            - name: Print the date from Job 1
+              run: |
+                echo "Date received from Job 1 - ${{ needs.job1-set-output.outputs.today_date }}"
