@@ -1,6 +1,7 @@
 name: Smart Pipeline
 on:
-    push:
+    #push:
+    workflow_dispatch:
 
 jobs:
     lint:
