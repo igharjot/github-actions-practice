@@ -11,3 +11,10 @@ jobs:
         steps:
             - name: Checkout Code
               uses: actions/checkout@v4
+
+            - name: Building Docker image
+              uses: docker/build-push-action@v6
+              with:
+                context: .
+                push: true
+                tags: user/app:latest
