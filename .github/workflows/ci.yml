@@ -1,0 +1,44 @@
+name: CI Pipeline for Shell Script
+
+on:
+    workflow_dispatch:
+        
+jobs:
+    read-and-run:
+        runs-on: ubuntu-latest
+        steps:
+            - name: Checkout Code
+              uses: actions/checkout@v4
+            
+            - name: Setup Node.js
+              uses: actions/setup-node@v4
+              with:
+                node-version: "20"
+                cache: "npm"
+
+            - name: Install Dependencies
+              run: |
+                sudo apt-get update
+                sudo apt-get upgrade
+                if [ -f "package-lock.json" ]; then
+                  npm ci 
+                elif [ -f "package.json" ]; then
+                  npm install
+                else
+                  echo "No package.json found — skipping npm install."
+                fi
+
+            - name: Running the script
+              run: |
+                chmod +x script.sh
+                ./script.sh
+
+            - name: Fails Pipeline if script exists with non-zero code
+              if: failure()
+              uses: actions/upload-artifact@v4
+              with:
+                name: ci-failure-logs
+                path: |
+                  *.log
+                  npm-debug.log*
+                retention-days: 7
