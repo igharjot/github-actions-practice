@@ -15,10 +15,19 @@ jobs:
               with:
                 node-version: "20"
 
+            - name: Cache node_modules
+              id: cache-node-modules
+              uses: actions/cache@v4
+              with:
+                path: node_modules        # what to cache
+                key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+                restore-keys: |
+                  ${{ runner.os }}-node-  # fallback: use closest old cache
+                
             - name: Install Dependencies
               run: |
                 sudo apt-get update
-                sudo apt-get upgrade
+                
                 if [ -f "package-lock.json" ]; then
                   npm ci 
                 elif [ -f "package.json" ]; then
