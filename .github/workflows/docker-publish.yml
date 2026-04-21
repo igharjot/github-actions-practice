@@ -2,8 +2,6 @@ name: Docker Publish
 
 on:
     workflow_dispatch:
-    #push:
-    #    - main
 
 jobs:
     docker:
@@ -24,17 +22,17 @@ jobs:
                 context: .
                 push: true
                 tags: |
-                  ${{ secrets.DOCKERHUB_USERNAME }}/demo-app:latest
-                  ${{ secrets.DOCKERHUB_USERNAME }}/demo-app:${{ github.sha }}
+                  ${{ secrets.DOCKER_USERNAME }}/demo-app:latest
+                  ${{ secrets.DOCKER_USERNAME }}/demo-app:${{ github.sha }}
 
             - name: Run container
               run: |
                 docker run -d --name demo-app -p 3000:3000 \
-                ${{ secrets.DOCKERHUB_USERNAME }}/demo-app:latest
+                ${{ secrets.DOCKER_USERNAME }}/demo-app:latest
  
                 sleep 5
  
                 docker ps | grep demo-app || { echo "Container failed to start!"; exit 1; }
  
             - name: Stop container
-              run: docker stop demo-app && docker rm demo-app      
+              run: docker stop demo-app && docker rm demo-app
