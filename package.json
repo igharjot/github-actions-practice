@@ -1,0 +1,21 @@
+{
+  "name": "github-actions-practice",
+  "version": "1.0.0",
+  "description": "This repository is dedicated to practicing and experimenting with **GitHub Actions**. It contains various workflow examples for testing triggers, matrices, and basic automation patterns.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/igharjot/github-actions-practice.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/igharjot/github-actions-practice/issues"
+  },
+  "homepage": "https://github.com/igharjot/github-actions-practice#readme"
+}
