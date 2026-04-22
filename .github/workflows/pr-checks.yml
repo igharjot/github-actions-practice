@@ -1,0 +1,58 @@
+name: PR Validation
+on:
+    pull_request:
+        branches: main
+jobs:
+    file-size-check:
+        runs-on: ubuntu-latest
+        steps:
+            - name: Checkout Code
+              uses: actions/checkout@v4
+
+            - name: Check for files larger than 1 MB
+              run: |
+                LIMIT=$((1024 * 1024))  # 1 MB in bytes
+                FAILED=0
+ 
+                # Get files changed in this PR vs the base branch
+                CHANGED_FILES=$(git diff --name-only origin/${{ github.base_ref }}...HEAD)
+ 
+                for FILE in $CHANGED_FILES; do
+                  if [ -f "$FILE" ]; then
+                    SIZE=$(stat -c%s "$FILE")
+                    if [ "$SIZE" -gt "$LIMIT" ]; then
+                      echo "❌ $FILE is $(( SIZE / 1024 )) KB — exceeds 1 MB limit"
+                      FAILED=1
+                    else
+                      echo "✅ $FILE ($(( SIZE / 1024 )) KB)"
+                    fi
+                  fi
+                done
+ 
+                if [ "$FAILED" -eq 1 ]; then
+                  exit 1
+                fi
+
+    branch-name-check:
+        runs-on: ubuntu-latest
+        steps:
+            - name: Checking branch name
+              run: |
+                echo "Branch Name - ${{github.head_ref}}"
+                if [[ "$BRANCH" =~ ^(feature|fix|docs)/.+ ]]; then
+                  echo "✅ Branch name follows the required pattern."
+                else
+                  echo "❌ Branch '$BRANCH' does not match required pattern: feature/*, fix/*, or docs/*"
+                  exit 1
+                fi
+
+    pr-body-check:
+        runs-on: ubuntu-latest
+        steps:
+            - name: Reading PR Body
+              run:  |
+                if [ -z "$(echo "${{github.event.pull_request.body}}" | tr -d '[:space:]')" ]; then
+                  echo "⚠️ Warning: PR description is empty. Consider adding context for reviewers."
+                else
+                  echo "✅ PR description is present."
+                fi
