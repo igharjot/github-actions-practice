@@ -1,0 +1,14 @@
+name: Paths-Ignore Filter
+
+on:
+    push:
+        paths-ignore:
+          - '*.md'
+          - 'docs/**'
+
+jobs:
+    paths:
+        runs-on: ubuntu-latest
+        steps:
+            - name: Intro
+              run: echo "This workflow is triggered by 'paths-ignore:'"

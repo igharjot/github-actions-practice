@@ -1,0 +1,14 @@
+name: Paths Filter
+
+on:
+    push:
+        paths:
+          - 'src/**'
+          - 'app/**'
+
+jobs:
+    paths:
+        runs-on: ubuntu-latest
+        steps:
+            - name: Intro
+              run: echo "This workflow is triggered by 'paths:'"
