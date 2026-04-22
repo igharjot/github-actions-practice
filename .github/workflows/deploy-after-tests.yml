@@ -1,0 +1,33 @@
+name: Deploy After Tests
+
+on:
+    workflow_run:
+      workflows: ["Run Tests"]
+      types: [completed]
+
+jobs:
+    deploy:
+        runs-on: ubuntu-latest
+        steps:
+            - name: Check test workflow conclusion
+              run: |
+                CONCLUSION="${{ github.event.workflow_run.conclusion }}"
+                echo "Triggering workflow conclusion: $CONCLUSION"
+ 
+                if [ "$CONCLUSION" != "success" ]; then
+                  echo "⚠️ Warning: Tests workflow did not succeed (conclusion: $CONCLUSION). Skipping deploy."
+                  exit 1
+                fi
+ 
+                echo "✅ Tests passed. Proceeding with deployment."
+ 
+            - name: Checkout code
+              uses: actions/checkout@v4
+              with:
+                ref: ${{ github.event.workflow_run.head_sha }}
+ 
+            - name: Deploy
+              run: |
+                echo "🚀 Deploying commit ${{ github.event.workflow_run.head_sha }}..."
+                # Replace with your actual deploy command
+ 
