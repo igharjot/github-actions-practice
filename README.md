@@ -12,3 +12,7 @@ This repository is dedicated to practicing and experimenting with **GitHub Actio
 ## 🚀 Purpose
 
 The goal of this repo is to explore GitHub's native automation platform in a sandbox environment. Each workflow is designed to be minimal and focused on a specific feature or concept.
+
+
+docker-publish.yml badge: 
+[![Docker Publish](https://github.com/igharjot/github-actions-practice/actions/workflows/docker-publish.yml/badge.svg)](https://github.com/igharjot/github-actions-practice/actions/workflows/docker-publish.yml)
