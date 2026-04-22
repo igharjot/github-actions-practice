@@ -1,0 +1,33 @@
+name: Greet Workflow
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+    inputs:
+      name:
+        description: "Name to greet"
+        required: true
+        default: World
+      language:
+        description: "Greeting language (en, es, fr, de, ja)"
+        required: false
+        default: en
+
+jobs:
+  greet:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Run setup and greet
+        id: greet
+        uses: ./.github/actions/setup-and-greet
+        with:
+          name: ${{ inputs.name || 'World' }}
+          language: ${{ inputs.language || 'en' }}
+
+      - name: Confirm greeted output
+        run: echo "greeted=${{ steps.greet.outputs.greeted }}"
