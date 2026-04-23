@@ -12,6 +12,24 @@ jobs:
             - name: Printing Client Payload
               run: echo "Environment - ${{github.event.client_payload.environment}}
  
+            - name: Validate environment
+              run: |
+                ENV="${{ github.event.client_payload.environment }}"
+ 
+                case "$ENV" in
+                  production|staging|development)
+                    echo "✅ Valid environment: $ENV"
+                    ;;
+                  "")
+                    echo "❌ No environment specified in client_payload."
+                    exit 1
+                    ;;
+                  *)
+                    echo "❌ Unknown environment: $ENV"
+                    exit 1
+                    ;;
+                esac
+
             - name: Run deploy
               run: echo "🚀 Deploying to ${{ github.event.client_payload.environment }}..."
  
