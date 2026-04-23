@@ -1,10 +1,11 @@
 name: Paths Filter
 
 on:
-    push:
-        paths:
-          - 'src/**'
-          - 'app/**'
+    # push:
+    #     paths:
+    #       - 'src/**'
+    #       - 'app/**'
+    workflow_dispatch:
 
 jobs:
     paths:

@@ -1,9 +1,10 @@
 name: Deploy After Tests
 
 on:
-    workflow_run:
-      workflows: ["Run Tests"]
-      types: [completed]
+    # workflow_run:
+    #   workflows: ["Run Tests"]
+    #   types: [completed]
+    workflow_dispatch:
 
 jobs:
     deploy:

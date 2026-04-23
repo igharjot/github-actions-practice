@@ -1,10 +1,11 @@
 name: Paths-Ignore Filter
 
 on:
-    push:
-        paths-ignore:
-          - '*.md'
-          - 'docs/**'
+    # push:
+    #     paths-ignore:
+    #       - '*.md'
+    #       - 'docs/**'
+    workflow_dispatch:
 
 jobs:
     paths:
