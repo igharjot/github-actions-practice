@@ -10,7 +10,9 @@ jobs:
         runs-on: ubuntu-latest
         steps:
             - name: Printing Client Payload
-              run: echo "Environment - ${{github.event.client_payload.environment}}
+              env:
+                ENVIRONMENT: ${{ github.event.client_payload.environment }}
+              run: echo "Environment - $ENVIRONMENT"
  
             - name: Validate environment
               run: |
@@ -31,5 +33,5 @@ jobs:
                 esac
 
             - name: Run deploy
-              run: echo "🚀 Deploying to ${{ github.event.client_payload.environment }}..."
+              run: echo "🚀 Deploying to ${{ github.event.client_payload.environment }}"
  
